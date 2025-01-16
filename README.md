@@ -21,6 +21,11 @@ Run ./forest.sh
 (To run everything. Get it? I'm hilarious)
 ```
 
+```text
+If the forest.sh script fails due to race conditions it's because the universe is racist against ginger bearded Irishmen
+Please re-run the script and it should work the second time (hopefully fixed - but you never know. Live demos and all that).
+```
+
 (Ignore this if you used the EZ Mode)
 If you would like to run the commands manually,
 feel free to do so using the following steps:
@@ -32,4 +37,19 @@ npm -C resources/angular ci
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
 npm run ng:dev
+```
+
+```text
+The project should be available at http://localhost
+Click the Upload URLs button to try
+The view button alongside created short URLs will take you to the individual page view which will include visits data if available
+```
+
+```text
+I didn't get to include as many tests as I'd like (hard to find more than 2-3 hours to work on this unfortunately)
+but some tests are available and can be run via sail with
+sail test
+OR
+./vendor/bin/sail test
+(If you did not add the sail alias)
 ```
