@@ -36,7 +36,7 @@ php artisan key:generate
 npm -C resources/angular ci
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
-npm run ng:dev
+npm run ng:watch
 ```
 
 ```text
