@@ -1,0 +1,12 @@
+<ng-container *ngIf="viewReady()">
+    <div class="z-[5000] grid gap-2">
+        <app-stackable-notification-card
+            *ngFor="let notification of (temporaryNotifications$ | async); trackBy: track" [notification]="notification">
+        </app-stackable-notification-card>
+        <ng-container *ngIf="(permanentNotifications$ | async)?.length">
+            <app-stackable-notification-card
+                *ngFor="let permNotification of (permanentNotifications$ | async); trackBy: track" [notification]="permNotification">
+            </app-stackable-notification-card>
+        </ng-container>
+    </div>
+</ng-container>

@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+//@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+//@import 'app/scss/material.theme';
+@import 'app/scss/utilities';
+@import 'app/scssm3-theme';
+
+@tailwind components;
+@tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: unset;
+}
+
+#app {
+  height: 100%;
+}
+
+.border-b {
+  border-bottom-style: solid;
+}

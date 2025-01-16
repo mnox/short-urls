@@ -1,0 +1,50 @@
+<div [@growIn]="notification.disableEntryAnimation ? 'void' : 'growIn'">
+    <mat-card
+        [@fadeOut]="expired && !notification.disableExitAnimation ? 'expired' : 'default'"
+        [class]="'!bg-viser-primary-green stackable-notification-card !p-4'">
+        <div class="column-grid text-white justify-between">
+            <div class="column-grid gap-4">
+                <div *ngIf="!!notification.badge"
+                     class="h-12 w-12 rounded-full column-grid justify-center place-items-center {{ notification.badge.class || 'bg-warm-gray-400' }}">
+                    <ng-container [ngSwitch]="notification.badge.type">
+                        <ng-container *ngSwitchCase="'icon'">
+                            <mat-icon [class]="notification.badge.iconClass">{{ notification.badge.value || 'check' }}</mat-icon>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'simple'">
+                            <div class="line-normal {{ notification.badge.textClass }}">{{ notification.badge.value }}</div>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'image'">
+                            <img class="{{ notification.badge.imageClass }}" [src]="notification.badge.value">
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault></ng-container>
+                    </ng-container>
+                </div>
+                <div class="grid text-sm" [ngClass]="{'h-min':!!notification.title}">
+                    <div class="h-min font-semibold">{{ notification.title }}</div>
+                    <div *ngIf="!!notification.progress && notification.progress >= 0" class="pr-4 py-2">
+                        <mat-progress-bar mode="determinate" [value]="notification.progress"></mat-progress-bar>
+                    </div>
+                    <div class="font-normal align-middle">
+                        {{ notification.subTitle }}
+                    </div>
+                </div>
+            </div>
+            <div class="density-1 grid justify-items-end h-min"
+                 [ngClass]="{
+                    'grid-flow-col': !longAction() || !notification.dismissible,
+                    'gap-2': !longAction(),
+                }">
+                <button *ngIf="!!notification.action"
+                        mat-button
+                        class="!text-white {{ longAction() ? 'row-start-2' : '' }}"
+                        (click)="handleAction()">
+                    {{ notification.action.label }}
+                </button>
+                <button *ngIf="notification.dismissible" mat-icon-button (click)="clearNotification()">
+                    <mat-icon class="!text-white">close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card>
+</div>

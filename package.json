@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "ng:dev": "cd resources/angular && npm run build -- --configuration development && cd - && npm run index-transform && cp public/angular/index.html resources/views/generated/angular.blade.php",
+        "ng:prod": "cd resources/angular && npm run build && cd - && npm run index-transform && cp public/angular/index.html resources/views/generated/angular.blade.php",
+        "ng:test": "cd resources/angular && ng test",
+        "ng:watch": "npm run ng:dev && cd resources/angular && npm run build -- --configuration development --watch",
+        "ng:copydeps": "cp public/angular/index.html resources/views/generated/angular.blade.php && cp public/angular",
+        "index-transform": "node resources/angular/angular-index-html-transform.js"
+    },
+    "devDependencies": {
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0",
+        "vite": "^5.0"
+    }
+}

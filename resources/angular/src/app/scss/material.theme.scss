@@ -1,0 +1,38 @@
+@use '@angular/material' as mat;
+@import 'colors';
+@include mat.core();
+
+$angular-material-theme-primary: mat.m2-define-palette($blue-palette);
+$angular-material-theme-accent: mat.m2-define-palette($warm-gray-palette);
+$angular-material-theme-warn: mat.m2-define-palette($yellow-palette);
+
+$typographyConfig: mat.m2-define-typography-config(
+  $font-family: Poppins,
+  $headline-1: mat.m2-define-typography-level(57px, 64px, 600, $letter-spacing: -0.25px),
+  $headline-2: mat.m2-define-typography-level(45px, 52px, 400, $letter-spacing: 0),
+  $headline-3: mat.m2-define-typography-level(36px, 44px, 400, $letter-spacing: 0),
+  $headline-4: mat.m2-define-typography-level(32px, 40px, 600, $letter-spacing: 0),
+  $headline-5: mat.m2-define-typography-level(28px, 36px, 700, $letter-spacing: 0),
+  $headline-6: mat.m2-define-typography-level(24px, 32px, 700, $letter-spacing: 0),
+  $subtitle-1: mat.m2-define-typography-level(22px, 28px, 700, $letter-spacing: 0),
+  $subtitle-2: mat.m2-define-typography-level(18px, 26px, 600, $letter-spacing: 0.15px),
+  $body-1: mat.m2-define-typography-level(16px, 24px, 400, $letter-spacing: 0.25px),
+  $body-2: mat.m2-define-typography-level(14px, 20px, 400, $letter-spacing: 0.25px),
+  $caption: mat.m2-define-typography-level(12px, 16px, 400, $letter-spacing: 0.4px),
+  $button: mat.m2-define-typography-level(14px, 20px, 600, $letter-spacing: 0.25px),
+);
+
+@include mat.typography-hierarchy($typographyConfig);
+
+$angular-material-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $angular-material-theme-primary,
+    accent: $angular-material-theme-accent,
+    warn: $angular-material-theme-warn,
+  ),
+  typography: $typographyConfig,
+));
+
+@include mat.all-component-themes($angular-material-theme);
+@include mat.all-component-typographies($typographyConfig);
+@include mat.core();
