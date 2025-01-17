@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 use Spatie\SimpleExcel\SimpleExcelReader;
@@ -42,7 +41,7 @@ class CsvService
     public function createShortUrlsFromUploadedCsvFile(string $path): LazyCollection
     {
         $urlService = resolve(UrlService::class);
-        $rows = SimpleExcelReader::create(Storage::path($path))->getRows();
+        $rows = $this->getRowsFromCsvFile($path);
         /**
          * Might want to limit the amount of rows that can be uploaded
          * at one time. Either way it would probably be good to jobify
@@ -68,5 +67,29 @@ class CsvService
                 ];
             }
         });
+    }
+
+    /**
+     * This ended up being slightly janky in the case of a flat
+     * CSV file with no header. Would have definitely refactored this a bit
+     * if I had more time.
+     * @param string $path
+     * @return LazyCollection
+     */
+    public function getRowsFromCsvFile(string $path): LazyCollection
+    {
+        $urlService = resolve(UrlService::class);
+        $reader = SimpleExcelReader::create(Storage::path($path));
+        $headers = $reader->getHeaders();
+        if($headers[0] && $urlService->isValidUrl($headers[0])) {
+            /**
+             * Stateful functionality on this package doesn't seem to work for some reason.
+             */
+            return SimpleExcelReader::create(Storage::path($path))
+                ->noHeaderRow()
+                ->getRows();
+        }
+
+        return $reader->getRows();
     }
 }
