@@ -70,8 +70,6 @@ class UrlService
     public function shortUrlExists(string $destination): bool
     {
         $existing = resolve(ShortUrlModel::class)::where('destination_url', $destination)->first();
-        Log::debug('Existing?');
-        Log::debug($existing);
         return !empty($existing);
     }
 
@@ -89,10 +87,7 @@ class UrlService
      */
     public function createNewShortUrl(string $destination): Model
     {
-        Log::debug('createNewShortUrl');
-        Log::debug($destination);
         if($this->shortUrlExists($destination)) {
-            Log::debug('ruh roh');
             throw new \Exception("$destination short url already exists");
         }
 
